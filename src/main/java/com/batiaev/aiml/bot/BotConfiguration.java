@@ -1,6 +1,8 @@
 package com.batiaev.aiml.bot;
 
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,8 +15,9 @@ import java.util.Properties;
  * @author batiaev
  * @since 19/10/16
  */
-@Slf4j
 public class BotConfiguration implements BotInfo {
+    private static Logger log = LoggerFactory.getLogger(BotConfiguration.class);
+
     private static final String PROPERTIES = "bot.properties";
 
     private String rootDir;

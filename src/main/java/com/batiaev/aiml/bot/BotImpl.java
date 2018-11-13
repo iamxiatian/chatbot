@@ -10,6 +10,8 @@ import com.batiaev.aiml.entity.AimlSet;
 import com.batiaev.aiml.entity.AimlSubstitution;
 import com.batiaev.aiml.loaders.*;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -29,8 +31,8 @@ import static com.batiaev.aiml.channels.ChannelType.CONSOLE;
  *
  * @author batiaev
  */
-@Slf4j
 public class BotImpl implements Bot {
+    private static Logger log = LoggerFactory.getLogger(BotImpl.class);
 
     private GraphMaster brain;
     private String rootDir;
