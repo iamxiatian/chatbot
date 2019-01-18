@@ -1,5 +1,8 @@
 package ruc.chatbot.entity
 
-trait AimlElement extends Cloneable {
-  def getType: String
+/**
+  * 所有的AIML Element必须拥有`type`属性，标记当前Element的类型
+  */
+trait AimlElement {
+  def `type`: String
 }
