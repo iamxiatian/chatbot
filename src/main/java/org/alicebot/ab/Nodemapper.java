@@ -37,6 +37,7 @@ public class Nodemapper {
     public Nodemapper value = null;
     public boolean shortCut = false;
     public ArrayList<String> sets;
+
 /*    public Nodemapper () {
         id = idCnt++;
     }*/

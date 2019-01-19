@@ -1,32 +1,19 @@
-# Aiml Java Interpreter
-[![Build Status](https://travis-ci.org/AIMLang/aiml-java-interpreter.svg?branch=master)](https://travis-ci.org/AIMLang/aiml-java-interpreter)
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
+# Chatbot
 
-AIML 2.0 Interpreter for Java
+## 计划支持的通用功能：
 
-It is not contains full implementation of specification, basically it is still pet project for aimlang spec implementation.
-So please keep it in mind.
+1. 天气预报
+1. 古文
+1. 诗词
+1. 百科
+1. 音乐播放
 
-## 1. Checkout bots and add symlink at homedir
-Bots repo - https://github.com/AIMLang/aiml-bots.git
+## 参考资料
 
-`./checkout.sh`
+1. https://blog.csdn.net/qin8752/article/details/79386121
 
-## 2. Build
-### 2.1 Using Maven
-`mvn clean package`
-## 2. Using Gradle
-`gradle clean fatJar`
+## Thanks
 
-## 3.Run
-1. `./scripts/run.sh`
-2. `java -jar ./target/aiml.jar`
-3. `java -jar ./target/aiml.jar russian`
-
-## Dependencies
-- Logback (1.2.3)
-- Slf4j (1.7.25)
-- JUnit (4.12)
-
-## Contacts
-anton@batiaev.com
+1. mp3agic: 
+   A java library for reading mp3 files and manipulating mp3 file ID3 tags (ID3v1 and ID3v2.2 to
+   		ID3v2.4). https://github.com/mpatric/mp3agic
