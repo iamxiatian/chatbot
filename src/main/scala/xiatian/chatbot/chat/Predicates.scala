@@ -14,4 +14,6 @@ class Predicates {
   }
 
   def get(key: String): Option[String] = params.get(key)
+
+  def apply(key: String): Option[String] = get(key)
 }

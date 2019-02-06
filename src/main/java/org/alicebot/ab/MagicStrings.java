@@ -78,7 +78,7 @@ public class MagicStrings {
     public static String too_much_recursion = "Too much recursion in AIML";
     public static String too_much_looping = "Too much looping in AIML";
     public static String blank_template = "blank template";
-    public static String null_input = "NORESP";
+    public static String null_input = "c";
     public static String null_star = "nullstar";
     // sets and maps
     public static String set_member_string = "ISA";

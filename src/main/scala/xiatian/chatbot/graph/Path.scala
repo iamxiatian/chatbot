@@ -12,7 +12,7 @@ object Path {
     * into a Path
     */
   def sentenceToPath(sentence: String): Option[Path] =
-    arrayToPath(sentence.trim.split(" ").toSeq)
+    arrayToPath(sentence.trim.split(" ").toList)
 
   /**
     * 把数组转换为一个Path，例如[I, love, China]，变为：
@@ -21,7 +21,7 @@ object Path {
     * @param words
     * @return
     */
-  def arrayToPath(array: Seq[String]): Option[Path] =
+  def arrayToPath(array: List[String]): Option[Path] =
     array match {
       case head :: tails =>
         val tailPath = arrayToPath(tails)

@@ -1,5 +1,6 @@
 package xiatian.chatbot.aiml
 
+import xiatian.chatbot.chat.Chat
 import xiatian.chatbot.conf.Logging
 import xiatian.chatbot.entity.Category
 
@@ -26,9 +27,9 @@ object AIMLProcessor extends Logging {
   def respond(input: String,
               that: String,
               topic: String,
-              srCnt: Int = 0
+              chatSession: Chat
              ): Option[String] = {
-
+    //val leaf = chatSession.bot.brain.match(input, that, topic)
     None
   }
 
@@ -47,7 +48,7 @@ object AIMLProcessor extends Logging {
         .map(_.asInstanceOf[Elem]).toList
         .flatMap {
           topic =>
-            (topic \ "category").map {
+            (topic \ "category").flatMap {
               c =>
                 parseCategory(c.asInstanceOf[Elem],
                   (topic \ "@name").map(_.text).headOption,
@@ -58,7 +59,7 @@ object AIMLProcessor extends Logging {
     val categories: List[Category] =
       (doc \ "category")
         .map(_.asInstanceOf[Elem]).toList
-        .map(c => parseCategory(c.asInstanceOf[Elem], None, filename))
+        .flatMap(c => parseCategory(c.asInstanceOf[Elem], None, filename))
 
     categoryInTopics ::: categories
   } match {
@@ -78,12 +79,17 @@ object AIMLProcessor extends Logging {
     */
   def parseCategory(categoryElem: Elem,
                     topic: Option[String],
-                    filename: Option[String]): Category = {
+                    filename: Option[String]): Option[Category] = Try {
     val pattern = (categoryElem \ "pattern").head.asInstanceOf[Elem].text.trim
     val template = (categoryElem \ "template").head.asInstanceOf[Elem].text.trim
     val that: Option[String] = (categoryElem \ "pattern").headOption
       .map(_.asInstanceOf[Elem]).map(_.text.trim)
 
     new Category(pattern, that, topic, template, filename)
+  } match {
+    case Success(c) => Option(c)
+    case Failure(e) =>
+      LOG.error(s"parse error for $categoryElem", e)
+      None
   }
 }

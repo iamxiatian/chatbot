@@ -11,16 +11,18 @@ import xiatian.chatbot.graph.GraphMaster
 class Bot(name: String, homeDir: File) extends Logging {
   val properties = new BotProperties()
 
-  val brain = new GraphMaster(this)
+  val brain = initBrain()
 
-  def init(): Unit = {
-
+  def initBrain(): GraphMaster = {
+    val g = new GraphMaster(this)
+    loadAIML(g)
+    g
   }
 
   /**
     * 加载AIML
     */
-  def loadAIML() = {
+  def loadAIML(g: GraphMaster) = {
     val path = File(homeDir, "aiml")
     LOG.info(s"Loading aiml from path ${path}")
     path.listRecursively.foreach {
@@ -28,22 +30,22 @@ class Bot(name: String, homeDir: File) extends Logging {
         if (f.isRegularFile && f.toString().toLowerCase.endsWith(".aiml")) {
           LOG.info(s"Loading aiml $f ... ")
           //读取AIML文件内容
-          val categoires = AIMLProcessor.loadFromFile(f.toJava)
-          categoires.foreach {
+          val categories = AIMLProcessor.loadFromFile(f.toJava)
+          categories.foreach {
             c =>
-              brain.addCategory(c)
+              g.addCategory(c)
           }
         }
     }
     LOG.info("AIML Loaded completely.")
   }
-
 }
 
 object Bot {
 
   def main(args: Array[String]): Unit = {
     val bot = new Bot("Robot", File("./kb/alice2"))
-    bot.loadAIML()
+
+
   }
 }
