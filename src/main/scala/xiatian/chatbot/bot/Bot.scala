@@ -1,7 +1,7 @@
 package xiatian.chatbot.bot
 
 import better.files.File
-import xiatian.chatbot.aiml.AIMLProcessor
+import xiatian.chatbot.aiml.AimlParser
 import xiatian.chatbot.conf.Logging
 import xiatian.chatbot.graph.GraphMaster
 
@@ -11,41 +11,21 @@ import xiatian.chatbot.graph.GraphMaster
 class Bot(name: String, homeDir: File) extends Logging {
   val properties = new BotProperties()
 
-  val brain = initBrain()
-
-  def initBrain(): GraphMaster = {
+  val brain: GraphMaster = {
     val g = new GraphMaster(this)
-    loadAIML(g)
-    g
+    g.loadAIML(File(homeDir, "aiml"))
   }
 
-  /**
-    * 加载AIML
-    */
-  def loadAIML(g: GraphMaster) = {
-    val path = File(homeDir, "aiml")
-    LOG.info(s"Loading aiml from path ${path}")
-    path.listRecursively.foreach {
-      f =>
-        if (f.isRegularFile && f.toString().toLowerCase.endsWith(".aiml")) {
-          LOG.info(s"Loading aiml $f ... ")
-          //读取AIML文件内容
-          val categories = AIMLProcessor.loadFromFile(f.toJava)
-          categories.foreach {
-            c =>
-              g.addCategory(c)
-          }
+  def respond(input: String, that: String, topic: String): Option[String] = {
+    val matchResult = brain.locate(input, that, topic)
+    matchResult.node.map {
+      leaf =>
+        leaf.category match {
+          case Some(c) =>
+            AimlParser.eval(c.template).get
+          case None =>
+            "对不起，我没有明白~"
         }
     }
-    LOG.info("AIML Loaded completely.")
-  }
-}
-
-object Bot {
-
-  def main(args: Array[String]): Unit = {
-    val bot = new Bot("Robot", File("./kb/alice2"))
-
-
   }
 }

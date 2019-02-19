@@ -43,4 +43,6 @@ object NodeMapper {
     */
   def locateChild(node: NodeMapper, word: String): Option[NodeMapper] =
     node.branches.get(word)
+
+  def isLeaf(node: NodeMapper): Boolean = node.category.nonEmpty
 }

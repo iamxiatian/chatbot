@@ -1,9 +1,19 @@
 package xiatian.chatbot.graph
 
+import xiatian.chatbot.chat.QuestionInput
+
 /**
   * Representation of Pattern Path and Input Path
   */
-case class Path(word: String, next: Option[Path], length: Int)
+case class Path(word: String, nextPath: Option[Path], length: Int) {
+  def hasNext(): Boolean = nextPath.nonEmpty
+
+  def isLast() = nextPath.isEmpty
+
+  def next(): Path = nextPath.get
+
+  def nextOption(): Option[Path] = nextPath
+}
 
 object Path {
 
@@ -12,7 +22,7 @@ object Path {
     * into a Path
     */
   def sentenceToPath(sentence: String): Option[Path] =
-    arrayToPath(sentence.trim.split(" ").toList)
+    arrayToPath(QuestionInput.splitWords(sentence))
 
   /**
     * 把数组转换为一个Path，例如[I, love, China]，变为：

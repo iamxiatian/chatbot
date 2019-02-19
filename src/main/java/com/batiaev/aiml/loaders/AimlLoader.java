@@ -48,9 +48,14 @@ public class AimlLoader {
         }
         int countNotAimlFiles = 0;
         for (File file : files) {
-            if (file.getName().endsWith(AimlConst.AIML_FILE_SUFFIX))
-                categories.addAll(loadFile(file));
-            else
+            if (file.getName().endsWith(AimlConst.AIML_FILE_SUFFIX)) {
+                List<AimlCategory> lst = loadFile(file);
+                System.out.println("==========================");
+                System.out.println(lst);
+                System.out.println("==========================");
+
+                categories.addAll(lst);
+            } else
                 ++countNotAimlFiles;
         }
         if (countNotAimlFiles != 0)
