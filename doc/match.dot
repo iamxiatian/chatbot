@@ -1,0 +1,13 @@
+digraph g {
+  fontname = "微软雅黑";
+  graph [ordering="out"];
+  margin=0;
+
+  node[] (r)
+
+  r -> a -> b -> c;  
+  r -> x;
+  r -> y;
+  b->d;
+  a -> e -> f;
+}

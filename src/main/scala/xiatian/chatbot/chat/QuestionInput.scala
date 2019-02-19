@@ -27,7 +27,12 @@ object QuestionInput {
     * @return
     */
   def splitWords(sentence: String): List[String] = {
-    val terms = HanLP.segment(sentence).asScala.filter(_.word.trim.nonEmpty)
+    val terms = HanLP.segment(sentence).asScala.filter{
+      term =>
+        val word = term.word
+        word.trim.nonEmpty && word !="的" && word != "了"
+    }
+
     //println(s"$sentence: $terms")
     val words = terms.toList.map {
       term =>

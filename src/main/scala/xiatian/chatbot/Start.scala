@@ -12,8 +12,23 @@ object Start extends App {
 
   val chat = Chat("xiatian", bot)
 
-  val reply = chat.chat("hello   world")
-  println("REPLY:>>> " + reply)
+  def test(input: String): Unit = {
+    println("---------------------")
+    println(s"Input>>>$input")
+    println(s"Reply==>${chat.chat(input)}")
+  }
 
-  println("REPLY: >>> " + chat.chat("你个大傻必备sdfdsfsX"))
+  test("你个大傻必备sdfdsfsX")
+
+  test("我最喜欢的水果是橘子")
+
+  test("现在几点")
+
+  test("昨天几号")
+
+  test("明天几号")
+
+  test("今天星期几")
+
+  test("10天后是星期几")
 }

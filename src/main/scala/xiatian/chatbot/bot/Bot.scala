@@ -22,7 +22,7 @@ class Bot(name: String, homeDir: File) extends Logging {
       leaf =>
         leaf.category match {
           case Some(c) =>
-            AimlParser.eval(c.template).get
+            AimlParser.parseTemplate(c.template, matchResult.context)
           case None =>
             "对不起，我没有明白~"
         }
