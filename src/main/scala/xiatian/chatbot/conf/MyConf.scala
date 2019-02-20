@@ -36,6 +36,9 @@ object MyConf {
   //所有Robot位于的主目录
   val botsLocation = getString("bots.location", "./bots")
 
+  // 默认机器人的目录名称
+  val botDefault = getString("bots.default")
+
   val screenConfigText: String = {
 
     def lineToString(lines: List[String], lastPart: Boolean = false): String = {
@@ -56,9 +59,9 @@ object MyConf {
     s"""
        |My configuration(build: ${BuildInfo.builtAtString}):
        |├── bots config:
-       |│   ├── botsLocation ==> $botsLocation
+       |│   ├── 机器人所在的主目录 ==> $botsLocation
        |│   ├──
-       |│   └── botsLocation ==> ${botsLocation}
+       |│   └── 默认启用的机器人 ==> ${botDefault}
        |
        |""".stripMargin
   }

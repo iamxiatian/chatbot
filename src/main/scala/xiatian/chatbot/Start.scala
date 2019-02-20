@@ -10,9 +10,9 @@ import scala.io.StdIn
   * 启动Bot的入口
   */
 object Start extends App {
-  val bot = new Bot("Robot", File("./kb/alice2"))
+  val bot = Bot("xiatian")
 
-  val chat = Chat("xiatian", bot)
+  val chat = Chat("human", bot)
 
   def test(input: String): Unit = {
     println("---------------------")

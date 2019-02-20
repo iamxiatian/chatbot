@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0">
+    <!-- -->
+    <!-- Free software (c) 2011 ALICE A.I. Foundation.   -->
+    <!-- This program is open source code released under -->
+    <!-- the terms of the GNU General Public License     -->
+    <!-- as published by the Free Software Foundation.   -->
+    <!-- Complies with AIML 1.0 Tag Set Specification -->
+    <!-- as adopted by the ALICE A.I. Foundation.  -->
+    <!-- Last modified 12/17/2011 -->
+    <!-- -->
+    <category>
+        <pattern>hello world!</pattern>
+        <template>
+            Hi!
+        </template>
+    </category>
+
+    <category>
+        <pattern>你好，我是小明</pattern>
+        <template>
+            Hi, I'm fine!
+        </template>
+    </category>
+
+    <category>
+        <pattern>你个傻 *</pattern>
+        <pattern>你真是个傻 *</pattern>
+        <pattern>你个大傻 *</pattern>
+        <template>
+            <random>
+                <li>不能说脏话！</li>
+                <li>注意素质！</li>
+                <li>滚~~~~~~~</li>
+            </random>
+        </template>
+    </category>
+
+    <category>
+        <pattern>我最喜欢的 * 是 *</pattern>
+        <template>
+            <random>
+                <li>嗯，我最新欢的<star/>也是
+                    <star index="2"/>
+                </li>
+                <li>巧了，<star index="2"/>也是我的最爱!
+                </li>
+            </random>
+        </template>
+    </category>
+
+
+    <category>
+        <pattern>今天的日期</pattern>
+        <pattern>今天几号</pattern>
+        <pattern>今天几月几号</pattern>
+        <pattern>今天是几号</pattern>
+        <template>
+            今天是<date format="yyyy年M月d日"/>
+        </template>
+    </category>
+
+    <category>
+        <pattern>昨天的日期</pattern>
+        <pattern>昨天几号</pattern>
+        <pattern>昨天几月几号</pattern>
+        <template>
+            昨天是<date format="yyyy年M月d日">1 day before</date>
+        </template>
+    </category>
+
+    <category>
+        <pattern>明天的日期</pattern>
+        <pattern>明天几号</pattern>
+        <pattern>明天几月几号</pattern>
+        <template>
+            明天是<date format="yyyy年M月d日">1 day after</date>
+        </template>
+    </category>
+
+    <category>
+        <pattern>几点了</pattern>
+        <pattern>现在几点</pattern>
+        <template>
+            现在是北京时间<date format="HH点mm分ss秒"/>
+        </template>
+    </category>
+
+    <category>
+        <pattern>今天星期几</pattern>
+        <template>
+            今天是<date format="week"/>
+        </template>
+    </category>
+
+    <category>
+        <pattern>* 天后是星期几</pattern>
+        <template>
+            <star/>天后是<date format="yyyy-MM-dd"><star/> days after</date>, 那一天是<date format="week"><star/> days after</date>
+        </template>
+    </category>
+</aiml>
