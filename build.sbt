@@ -54,6 +54,13 @@ libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3"
 libraryDependencies += "ch.qos.logback" % "logback-core" % "1.2.3"
 libraryDependencies += "com.google.guava" % "guava" % "24.0-jre"
 
+//CIRCE JSON Parser
+libraryDependencies ++= Seq(
+  "io.circe" %% "circe-core",
+  "io.circe" %% "circe-generic",
+  "io.circe" %% "circe-parser"
+).map(_ % "0.10.1")
+
 //Scala Test library
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % "test"
 libraryDependencies += "junit" % "junit" % "4.12"
