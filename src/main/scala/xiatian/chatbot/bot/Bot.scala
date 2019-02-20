@@ -14,6 +14,8 @@ class Bot(name: String) extends Logging {
   //加载当前bot的配置信息
   val info = BotInfo(File(botDir, "bot.conf"))
 
+  val substitution = Substitution(File(botDir, "substitutions"))
+
   val brain: GraphMaster = {
     val g = new GraphMaster(this)
     g.loadAIML(File(botDir, "aiml"))

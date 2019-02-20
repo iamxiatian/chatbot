@@ -1,6 +1,7 @@
 package xiatian.chatbot
 
 import better.files.File
+import com.hankcs.hanlp.HanLP
 import xiatian.chatbot.bot.Bot
 import xiatian.chatbot.chat.Chat
 
@@ -40,7 +41,7 @@ object Start extends App {
     if (line != "exit") {
       val reply = chat.chat(line)
       println(reply)
-
+      println(HanLP.segment(line))
       request()
     }
   }

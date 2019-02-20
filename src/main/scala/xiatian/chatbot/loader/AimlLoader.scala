@@ -18,25 +18,32 @@ object AimlLoader extends Logging {
     val doc = XML.loadFile(aimlFile)
     val filename = Option(aimlFile.getName)
 
-    val categoryInTopics: List[Category] =
-      (doc \ "topic")
-        .map(_.asInstanceOf[Elem]).toList
-        .flatMap {
-          topic =>
-            (topic \ "category").flatMap {
-              c =>
-                parseCategoryNode(c.asInstanceOf[Elem],
-                  (topic \ "@name").map(_.text).headOption,
-                  filename)
-            }
-        }
+    val disabled = (doc \ "@enabled").headOption.map(_.text).getOrElse("true") == "false"
 
-    val categories: List[Category] =
-      (doc \ "category")
-        .map(_.asInstanceOf[Elem]).toList
-        .flatMap(c => parseCategoryNode(c.asInstanceOf[Elem], None, filename))
+    if (disabled) {
+      LOG.info(s"disalbed aiml: $aimlFile")
+      List.empty[Category]
+    } else {
+      val categoryInTopics: List[Category] =
+        (doc \ "topic")
+          .map(_.asInstanceOf[Elem]).toList
+          .flatMap {
+            topic =>
+              (topic \ "category").flatMap {
+                c =>
+                  parseCategoryNode(c.asInstanceOf[Elem],
+                    (topic \ "@name").map(_.text).headOption,
+                    filename)
+              }
+          }
 
-    categoryInTopics ::: categories
+      val categories: List[Category] =
+        (doc \ "category")
+          .map(_.asInstanceOf[Elem]).toList
+          .flatMap(c => parseCategoryNode(c.asInstanceOf[Elem], None, filename))
+
+      categoryInTopics ::: categories
+    }
   } match {
     case Success(r) => r
     case Failure(e) =>

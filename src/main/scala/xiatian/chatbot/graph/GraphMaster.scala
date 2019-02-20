@@ -16,6 +16,8 @@ class GraphMaster(bot: Bot) extends Logging {
 
   private val root = new NodeMapper()
 
+  import bot.substitution
+
   /**
     * 清楚掉大脑之前的记忆，重新加载知识时需要该操作
     */
@@ -46,8 +48,12 @@ class GraphMaster(bot: Bot) extends Logging {
 
   private def toPathString(input: String,
                            that: String,
-                           topic: String): String =
-    s"""$input <THAT> $that <TOPIC> $topic"""
+                           topic: String): String = {
+    val s1 = substitution.normalize(input)
+    val s2 = substitution.normalize(that)
+    val s3 = substitution.normalize(topic)
+    s"""$s1 <THAT> $s2 <TOPIC> $s3"""
+  }
 
   private def toPathString(c: Category): String = toPathString(c.pattern,
     c.that.getOrElse(MagicValues.default_that),
