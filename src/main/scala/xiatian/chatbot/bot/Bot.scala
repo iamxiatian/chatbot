@@ -16,6 +16,11 @@ class Bot(name: String, homeDir: File) extends Logging {
     g.loadAIML(File(homeDir, "aiml"))
   }
 
+  def reload(): Unit = {
+    brain.clearMemory()
+    //brain.loadAIML()
+  }
+
   def respond(input: String, that: String, topic: String): Option[String] = {
     val matchResult = brain.locate(input, that, topic)
     matchResult.node.map {

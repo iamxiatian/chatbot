@@ -42,7 +42,7 @@ object AimlParser extends Logging {
         c.child.map(recurseParse(_, context)).mkString(" ")
 
       case _ => ""
-    }.mkString(" ")
+    }.mkString("")
   }
 
   /**

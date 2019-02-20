@@ -4,6 +4,8 @@ import better.files.File
 import xiatian.chatbot.bot.Bot
 import xiatian.chatbot.chat.Chat
 
+import scala.io.StdIn
+
 /**
   * 启动Bot的入口
   */
@@ -31,4 +33,17 @@ object Start extends App {
   test("今天星期几")
 
   test("10天后是星期几")
+
+  def request(): Unit = {
+    print("INPUT> ")
+    val line = StdIn.readLine().trim
+    if (line != "exit") {
+      val reply = chat.chat(line)
+      println(reply)
+
+      request()
+    }
+  }
+
+  request()
 }

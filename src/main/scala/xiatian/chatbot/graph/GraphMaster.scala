@@ -9,12 +9,19 @@ import xiatian.chatbot.entity.Category
 import xiatian.chatbot.loader.AimlLoader
 
 /**
-  * AIML构成的知识图
+  * AIML构成的知识图, 即聊天机器人的大脑
   */
 class GraphMaster(bot: Bot) extends Logging {
   val categoryCnt = new AtomicInteger(0)
 
-  val root = new NodeMapper()
+  private val root = new NodeMapper()
+
+  /**
+    * 清楚掉大脑之前的记忆，重新加载知识时需要该操作
+    */
+  def clearMemory() = {
+    root.branches.clear()
+  }
 
   /**
     * 加载AIML
@@ -86,10 +93,6 @@ class GraphMaster(bot: Bot) extends Logging {
     val path: Option[Path] = Path.sentenceToPath(pathString)
     //    `match`(path, pathString)
 
-    val inputStars = Array.empty[String]
-    val thatStars = Array.empty[String]
-    val topicStars = Array.empty[String]
-    val trace = StringBuilder.newBuilder
     val context = MatchContext()
 
     val node = MatchController.locate(path, root, pathString,
