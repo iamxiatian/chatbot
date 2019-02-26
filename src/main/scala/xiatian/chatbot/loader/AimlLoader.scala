@@ -69,8 +69,8 @@ object AimlLoader extends Logging {
 
     patterns.map {
       e =>
-        val pattern = e.asInstanceOf[Elem].text.trim
-        Category(pattern, that, topic, template, filename)
+        val pattern = e.asInstanceOf[Elem]
+        Category(pattern, that, topic, template)
     }
   } match {
     case Success(c) => c

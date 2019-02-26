@@ -26,13 +26,49 @@ object WordMatcher extends GraphMatcher {
         val word = path.word
         val (nextStarType: StarType, nextStarIndex: Int) =
           if (word == "<THAT>") (ThatStar, 0)
-          else if (word == "<TOPIC") (TopicStar, 0)
+          else if (word == "<TOPIC>") (TopicStar, 0)
           else (step.starType, step.starIndex)
 
         //定位当前词语word所在的节点，然后进行匹配
         NodeMapper.locateChild(step.parentNode, word).flatMap {
           child =>
             val nextStep = step.next(child, nextStarType, nextStarIndex)
+            MatchController.locate(nextStep)
+        }
+      case None =>
+        //到达结尾，说明之前的节点是目标节点，直接返回
+        Some(step.parentNode)
+    }
+}
+
+
+/**
+  * 根据词性标签进行匹配
+  */
+object PoSMatcher extends GraphMatcher {
+  /**
+    * 按照词语在树上进行比较
+    */
+  override def `match`(step: MatchStep): Option[NodeMapper] =
+    step.path match {
+      case Some(path) =>
+        val word = path.word
+        val pos = path.tag
+
+        val (nextStarType: StarType, nextStarIndex: Int) =
+          if (word == "<THAT>") (ThatStar, 0)
+          else if (word == "<TOPIC") (TopicStar, 0)
+          else (step.starType, step.starIndex)
+
+        //定位当前词语word所在的节点，然后进行匹配
+        NodeMapper.locateChild(step.parentNode, s"pos_$pos").flatMap {
+          child =>
+            val context = step.context
+            context.appendStarWord(step.starIndex, path.word, step.starType)
+
+            val nextStep = MatchStep(path.nextPath, child, step.inputThatTopic,
+              step.starType, step.starIndex + 1, context)
+            
             MatchController.locate(nextStep)
         }
       case None =>

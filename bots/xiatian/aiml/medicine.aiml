@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0">
+    <category>
+        <pattern><term pos="yao"/> 的成份 *</pattern>
+        <pattern>* 的成分 *</pattern>
+        <template>
+            <star index="1"/>的成份是：（未连接药品数据库）
+        </template>
+    </category>
+
+    <category>
+        <pattern><term pos="bing"/> 的症状</pattern>
+        <pattern><term pos="bing"/> 有什么*</pattern>
+        <pattern>得了<term pos="bing"/> 怎么办 *</pattern>
+        <template>
+            <star index="1"/>的症状XXX
+        </template>
+    </category>
+</aiml>

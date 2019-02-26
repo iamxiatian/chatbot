@@ -4,7 +4,7 @@ package xiatian.chatbot.graph
   * 控制在GraphMaster树上的匹配过程的控制器
   */
 object MatchController {
-  val defaultMatchers = List(NullMatcher, WordMatcher, WildMatcher)
+  val defaultMatchers = List(NullMatcher, WordMatcher, PoSMatcher, WildMatcher)
 
   def locate(step: MatchStep): Option[NodeMapper] = locate(step, defaultMatchers)
 

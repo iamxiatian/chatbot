@@ -4,7 +4,10 @@ http://callmom.pandorabots.com/static/reference/
 
 https://www.tutorialspoint.com/aiml/aiml_topic_tag.htm
 
-## set and get
+## aiml
+所有的aiml知识（category）都放在aiml标签下，该标签拥有属性：
+    - version: AIML版本，默认为1.0
+    - enabled: 是否启用，默认为true，当为false时，不再加载该知识
 
 ## date
 

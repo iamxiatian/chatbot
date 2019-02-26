@@ -1,8 +1,4 @@
-package xiatian.chatbot.chat
-
-import com.hankcs.hanlp.HanLP
-
-import scala.collection.JavaConverters._
+package xiatian.chatbot.parse
 
 /**
   * 对bot的聊天输入进行预处理
@@ -26,27 +22,34 @@ object QuestionInput {
     * @param sentence
     * @return
     */
-  def splitWords(sentence: String): List[String] = {
-    val terms = HanLP.segment(sentence).asScala.filter{
+  def splitWords(sentence: String): List[(String, String)] = {
+    val terms = Segment.seg(sentence).filter {
       term =>
         val word = term.word
-        word.trim.nonEmpty && word !="的" && word != "了"
+        val nature = term.nature.toString
+
+        if (word.trim.isEmpty ||
+          word.length == 1 && (nature == "uj" || nature == "y")
+        ) false else true
     }
 
     //println(s"$sentence: $terms")
     val words = terms.toList.map {
       term =>
-        if (term.nature.toString == "w" && term.word != "*") {
-          "<BIAODIAN>"
+        val nature = term.nature.toString
+        if (nature == "w" && term.word != "*") {
+          ("<BIAODIAN>", nature)
         } else {
-          term.word
+          (term.word, nature)
         }
     }
 
     //把原始句子抽取出来，即THAT之前的内容
-    val (head, tail) = words.span(_ != "<THAT>")
+    val (head, tail) = words.span(_._1 != "<THAT>")
 
     //去除一个句子最后的标点符号
-    head.reverse.dropWhile(_ == "<BIAODIAN>").reverse ::: tail
+    val results = head.reverse.dropWhile(_._1 == "<BIAODIAN>").reverse ::: tail
+    //results.foreach(println)
+    results
   }
 }

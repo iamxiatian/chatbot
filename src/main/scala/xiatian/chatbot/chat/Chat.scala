@@ -2,6 +2,7 @@ package xiatian.chatbot.chat
 
 import xiatian.chatbot.bot.Bot
 import xiatian.chatbot.conf.{Logging, MagicValues}
+import xiatian.chatbot.parse.QuestionInput
 
 /**
   * Class encapsulating a chat session between a bot and a client

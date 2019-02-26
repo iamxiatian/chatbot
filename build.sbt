@@ -100,12 +100,13 @@ initialCommands in console +=
     |import xiatian.chatbot.entity._
     |import xiatian.chatbot.chat._
     |import xiatian.chatbot.bot._
-    |import xiatian.chatbot.core._
+    |import xiatian.chatbot.loader._
     |
     |import scala.collection.JavaConverters._
     |import scala.util.{Failure, Success, Try}
     |import scala.xml.{Elem, XML}
     |
-    |val aimlFile = new java.io.File("/home/xiatian/workspace/github/chatbot/kb/alice2/aiml/dialog.aiml")
+    |val aimlFile = new java.io.File("./bots/xiatian/aiml/default.aiml")
     |val doc = XML.loadFile(aimlFile)
+    |
   """.stripMargin

@@ -65,6 +65,7 @@ class GraphMaster(bot: Bot) extends Logging {
     * @param category
     */
   def addCategory(category: Category): Unit = {
+    //println(toPathString(category))
     Path.sentenceToPath(toPathString(category))
       .foreach {
         path =>
