@@ -30,7 +30,3 @@ object SubstitutionLoader extends Logging {
       .flatMap(loadFromFile(_))
       .toMap
 }
-
-class Substitution {
-
-}

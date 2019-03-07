@@ -61,21 +61,19 @@ object AimlLoader extends Logging {
     */
   def parseCategoryNode(categoryElem: Elem,
                         topic: Option[String],
-                        filename: Option[String]): Seq[Category] = Try {
-    val patterns = (categoryElem \ "pattern")
+                        filename: Option[String]): Option[Category] = Try {
+    val patterns: Seq[Elem] = (categoryElem \ "pattern").map(_.asInstanceOf[Elem])
     val template = (categoryElem \ "template").head.asInstanceOf[Elem]
-    val that: Option[String] = (categoryElem \ "that").headOption
-      .map(_.asInstanceOf[Elem]).map(_.text.trim)
+    val that: Option[String] = (categoryElem \ "that")
+      .headOption
+      .map(_.asInstanceOf[Elem])
+      .map(_.text.trim)
 
-    patterns.map {
-      e =>
-        val pattern = e.asInstanceOf[Elem]
-        Category(pattern, that, topic, template)
-    }
+    Category(patterns, that, topic, template)
   } match {
-    case Success(c) => c
+    case Success(c) => Some(c)
     case Failure(e) =>
       LOG.error(s"parse error for $categoryElem", e)
-      Seq.empty[Category]
+      Option.empty[Category]
   }
 }

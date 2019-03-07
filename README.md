@@ -1,10 +1,12 @@
 # Chatbot
 
 ## 功能改进
-    - [X] 处理标点符号问题，所有标点符号，看作是一类符号。
-    - [X] 问句分析支持词性处理
-    - [X] pattern支持通过<term pos="xx"/>支持词性统配符匹配，例如限制为人名命中的情况： <pattern><term pos="nr"/>的故乡在哪里？</pattern>
-    - [X] 改进Category对象，支持在pattern中加入子节点
+    - [DONE] <term pos="xx"/>中的XX可以是逗号分割的多个词性，如<term pos="nr, nt"/>
+    - [DONE] 处理标点符号问题，所有标点符号，看作是一类符号。
+    - [DONE] 问句分析支持词性处理
+    - [DONE] pattern支持通过<term pos="xx"/>支持词性统配符匹配，例如限制为人名命中的情况： <pattern><term 
+    pos="nr"/>的故乡在哪里？</pattern>
+    - [DONE] 改进Category对象，支持在pattern中加入子节点
     - [ ] 把统计得到的词语加入到分词词典之中，增加新词性
 
 1. 人工整理100条常见的有关寻医问药的问句模板, 例子附后

@@ -39,4 +39,7 @@ object MedicineDb extends BaseRocksDb("medicine db") {
 
   }
 
+  def main(args: Array[String]): Unit = {
+    build()
+  }
 }

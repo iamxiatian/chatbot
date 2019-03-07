@@ -3,7 +3,7 @@ package xiatian.chatbot.graph
 import java.util.concurrent.atomic.AtomicInteger
 
 import better.files.File
-import xiatian.chatbot.bot.Bot
+import xiatian.chatbot.bot.{Bot, Substitution}
 import xiatian.chatbot.conf.{Logging, MagicValues}
 import xiatian.chatbot.entity.Category
 import xiatian.chatbot.loader.AimlLoader
@@ -16,7 +16,7 @@ class GraphMaster(bot: Bot) extends Logging {
 
   private val root = new NodeMapper()
 
-  import bot.substitution
+  implicit val substitution: Substitution = bot.substitution
 
   /**
     * 清楚掉大脑之前的记忆，重新加载知识时需要该操作
@@ -46,33 +46,25 @@ class GraphMaster(bot: Bot) extends Logging {
     this
   }
 
-  private def toPathString(input: String,
-                           that: String,
-                           topic: String): String = {
-    val s1 = substitution.normalize(input)
-    val s2 = substitution.normalize(that)
-    val s3 = substitution.normalize(topic)
-    s"""$s1 <THAT> $s2 <TOPIC> $s3"""
-  }
-
-  private def toPathString(c: Category): String = toPathString(c.pattern,
-    c.that.getOrElse(MagicValues.default_that),
-    c.topic.getOrElse(MagicValues.default_topic))
-
   /**
     * 将一个知识类别加入到内存知识树之中
     *
     * @param category
     */
   def addCategory(category: Category): Unit = {
-    //println(toPathString(category))
-    Path.sentenceToPath(toPathString(category))
-      .foreach {
-        path =>
-          addPath(root, path, category)
+    //获取category所有可能的pattern
+    val that = category.that.getOrElse(MagicValues.default_that)
+    val topic = category.topic.getOrElse(MagicValues.default_topic)
 
-          categoryCnt.incrementAndGet()
-      }
+    category.patterns.foreach {
+      pattern =>
+        Path.toPath(pattern, that, topic) match {
+          case Some(path) =>
+            addPath(root, path, category)
+          case None =>
+            LOG.warn(s"Skip $pattern")
+        }
+    }
   }
 
   /**
@@ -83,21 +75,32 @@ class GraphMaster(bot: Bot) extends Logging {
     * @param category
     */
   private def addPath(parent: NodeMapper, path: Path, category: Category): Unit = {
-    val node = parent.getOrInsert(path.word)
+    //如果path的word是“pos_nr_ns”这种形式，需要额外处理
+    val words: Seq[String] = if (path.word.startsWith("pos_")) {
+      path.word.split("_").drop(1).map("pos_" + _)
+    } else {
+      Seq(path.word)
+    }
 
-    path.nextPath match {
-      case Some(p) =>
-        addPath(node, p, category)
-      case None =>
-        //说明当前path是最后一个节点，直接把对应的category记录到节点中
-        node.category = Option(category)
+    //对每一个word加入后续的路径
+    words.foreach {
+      word =>
+        val node = parent.getOrInsert(word)
+        path.nextPath match {
+          case Some(p) =>
+
+            addPath(node, p, category)
+          case None =>
+            //说明当前path是最后一个节点，直接把对应的category记录到节点中
+            node.category = Option(category)
+        }
     }
   }
 
   def locate(input: String, that: String, topic: String): MatchResult = {
-    val pathString: String = toPathString(input, that, topic)
+    val pathString: String = Path.toPathString(input, that, topic)
     LOG.debug(s"matching $pathString")
-    val path: Option[Path] = Path.sentenceToPath(pathString)
+    val path: Option[Path] = Path.toPath(pathString)
     //    `match`(path, pathString)
 
     val context = MatchContext()

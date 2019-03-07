@@ -1,5 +1,7 @@
 package xiatian.chatbot.parse
 
+import xiatian.chatbot.conf.Logging
+
 /**
   * 对bot的聊天输入进行预处理
   *
@@ -33,7 +35,7 @@ object QuestionInput {
         ) false else true
     }
 
-    //println(s"$sentence: $terms")
+    Logging.println(s"$sentence: $terms")
     val words = terms.toList.map {
       term =>
         val nature = term.nature.toString

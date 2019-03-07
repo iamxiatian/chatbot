@@ -1,5 +1,6 @@
 package xiatian.chatbot.graph
 
+import xiatian.chatbot.bot.Substitution
 import xiatian.chatbot.parse.QuestionInput
 
 /**
@@ -24,16 +25,15 @@ object Path {
     * convert a sentence (a string consisting of words separated by single spaces)
     * into a Path
     */
-    def sentenceToPath(sentence: String): Option[Path] = {
-      arrayToPath(QuestionInput.splitWords(sentence))
-    }
-
-  def categoryToPath(pattern: String,
-                     that: String,
-                     topic: String): Option[Path] = {
-    arrayToPath(QuestionInput.splitWords(pattern))
+  def toPath(sentence: String): Option[Path] = {
+    arrayToPath(QuestionInput.splitWords(sentence))
   }
 
+  //  def categoryToPath(pattern: String,
+  //                     that: String,
+  //                     topic: String): Option[Path] = {
+  //    arrayToPath(QuestionInput.splitWords(pattern))
+  //  }
 
 
   /**
@@ -52,5 +52,27 @@ object Path {
       case Nil =>
         None
     }
+
+  def toPath(input: String,
+             that: String,
+             topic: String)
+            (implicit substitution: Substitution): Option[Path] = {
+    val s = toPathString(input, that, topic)
+    toPath(s)
+  }
+
+  def toPathString(input: String,
+                   that: String,
+                   topic: String)(implicit substitution: Substitution) = {
+    val s1 = substitution.normalize(input)
+    val s2 = substitution.normalize(that)
+    val s3 = substitution.normalize(topic)
+    s"""$s1 <THAT> $s2 <TOPIC> $s3"""
+  }
+
+
+  //  def toPathString(c: Category)(implicit substitution: Substitution): String = toPathString(c.pattern,
+  //    c.that.getOrElse(MagicValues.default_that),
+  //    c.topic.getOrElse(MagicValues.default_topic))
 
 }
