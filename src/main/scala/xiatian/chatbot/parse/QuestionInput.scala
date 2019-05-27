@@ -15,6 +15,11 @@ object QuestionInput {
     */
   def splitSentence(input: String): List[String] = List(input)
 
+  def extractTopics(input: String): List[String] = Segment.seg(input)
+    .filter {
+      t => t.nature.toString.startsWith("n")
+    }.map(_.word).toList
+
   /**
     * 把句子转换为词语的集合, 转换过程中，做了如下处理：
     *

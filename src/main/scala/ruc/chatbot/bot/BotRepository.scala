@@ -14,4 +14,5 @@ class BotRepository(val chatContextStorage: ChatContextStorage) {
   def get(name: String) = new BotImpl(name, getBotPath(name), chatContextStorage)
 
   private def getBotPath(name: String) = rootDir + File.separator + name + File.separator
+
 }

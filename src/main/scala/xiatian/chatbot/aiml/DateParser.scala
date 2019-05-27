@@ -50,7 +50,7 @@ object DateParser {
     }
 
     if (pattern == "week") {
-      weekdays(d.getDayOfWeek)
+      weekdays(d.getDayOfWeek % 7)
     } else d.toString(pattern)
   }
 

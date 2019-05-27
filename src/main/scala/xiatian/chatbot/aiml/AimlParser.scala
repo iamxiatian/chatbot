@@ -36,6 +36,9 @@ object AimlParser extends Logging {
       case c: Elem if c.label == "date" =>
         DateParser.parse(c, context)
 
+      case c: Elem if c.label == "wiki" =>
+        WikiParser.parse(c, context)
+
       case c: Elem =>
         println(s"unknown tag: ${c.label}")
         //递归解析每一个子节点

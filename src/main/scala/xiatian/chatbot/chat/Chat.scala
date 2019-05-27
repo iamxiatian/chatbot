@@ -2,7 +2,7 @@ package xiatian.chatbot.chat
 
 import xiatian.chatbot.bot.Bot
 import xiatian.chatbot.conf.{Logging, MagicValues}
-import xiatian.chatbot.parse.QuestionInput
+import xiatian.chatbot.parse.{InputSimplify, QuestionInput}
 
 /**
   * Class encapsulating a chat session between a bot and a client
@@ -29,7 +29,8 @@ case class Chat(customerId: String, bot: Bot) extends Logging {
     val contextThatHistory = new History[String]("contextThat")
     val sentences = QuestionInput.splitSentence(request)
     val response = sentences.flatMap {
-      input =>
+      t =>
+        val input = InputSimplify.simplify(t)
         respond(input, contextThatHistory)
     }.mkString("\n")
 

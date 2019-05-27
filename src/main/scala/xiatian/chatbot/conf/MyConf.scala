@@ -39,6 +39,8 @@ object MyConf {
   // 默认机器人的目录名称
   val botDefault = getString("bots.default")
 
+  lazy val httpPort = getInt("http.port")
+
   val screenConfigText: String = {
 
     def lineToString(lines: List[String], lastPart: Boolean = false): String = {

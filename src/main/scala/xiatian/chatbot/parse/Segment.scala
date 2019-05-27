@@ -29,7 +29,6 @@ object Segment {
   def main(args: Array[String]): Unit = {
 //    buildCustomDict(File("./data/dict/disease.txt"),
 //      File("./data/dictionary/custom/disease.txt"), "bing", 100)
-    println(seg("口腔修复和戒毒事情"))
   }
 
 }
