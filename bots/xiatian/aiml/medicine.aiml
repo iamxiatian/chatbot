@@ -4,16 +4,39 @@
         <pattern><term pos="yao"/> 的成份 *</pattern>
         <pattern>* 的成分 *</pattern>
         <template>
-            <star index="1"/>的成份是：（未连接药品数据库）
+            <wiki type="yao"><star index="1"/></wiki>
         </template>
     </category>
 
     <category>
-        <pattern><term pos="bing"/> 的症状</pattern>
-        <pattern><term pos="bing"/> 有什么*</pattern>
+        <pattern><term pos="bing, zheng"/> 的症状</pattern>
+        <pattern><term pos="bing, zheng"/> 有什么*</pattern>
         <pattern>得了<term pos="bing"/> 怎么办 *</pattern>
         <template>
-            <star index="1"/>的症状XXX
+            <star index="1"/>的症状:
+            <wiki type="medicine"><star index="1"></star></wiki>
         </template>
     </category>
+
+    <category>
+        <pattern><term pos="yao"/></pattern>
+        <template>
+            <star index="1"/>是一种药: <wiki type="yao"><star index="1"/></wiki>
+        </template>
+    </category>
+
+    <category>
+        <pattern><term pos="bing"/></pattern>
+        <template>
+            <star index="1"/>是一种病.
+        </template>
+    </category>
+
+    <category>
+        <pattern><term pos="zheng"/></pattern>
+        <template>
+            <star index="1"/>是病的症状
+        </template>
+    </category>
+
 </aiml>

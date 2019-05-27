@@ -1,3 +1,11 @@
+# Note
+
+怎么处理匹配树？匹配树的节点有多种类型，一是默认的字符完整匹配模式，二是特殊的节点匹配，包括：
+    - 根据词性的匹配方式，需要节点树的每个节点，有一个可以通过词性跳转的方式。
+    - 星号的匹配
+
+节点上加上多种
+
 # AIML Syntax
 
 http://callmom.pandorabots.com/static/reference/
@@ -23,3 +31,21 @@ https://www.tutorialspoint.com/aiml/aiml_topic_tag.htm
 </template>
 </category>
 ```
+
+## srai
+
+递归回答问题，例如：
+
+```xml
+<category>
+<pattern>请问 *</pattern>
+<pattern>请问一下 *</pattern>
+<pattern>问一下 *</pattern>
+<pattern>我想问一下 *</pattern>
+<pattern>你知道 *</pattern>
+<template>
+    <srai><star/></srai>
+</template>
+</category>
+```
+

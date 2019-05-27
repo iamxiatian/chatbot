@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0" enabled="true">
+    <!-- -->
+    <!-- Free software (c) 2011 ALICE A.I. Foundation.   -->
+    <!-- This program is open source code released under -->
+    <!-- the terms of the GNU General Public License     -->
+    <!-- as published by the Free Software Foundation.   -->
+    <!-- Complies with AIML 1.0 Tag Set Specification -->
+    <!-- as adopted by the ALICE A.I. Foundation.  -->
+    <!-- Last modified 12/17/2011 -->
+    <!-- -->
+    <category>
+        <pattern>你叫什么名字</pattern>
+        <pattern>你叫什么</pattern>
+        <pattern>你姓什么</pattern>
+        <template>
+            我是小新。
+        </template>
+    </category>
+
+    <category>
+        <pattern>你几年多大了</pattern>
+        <pattern>你叫什么</pattern>
+        <pattern>你姓什么</pattern>
+        <template>
+            我是小新。
+        </template>
+    </category>
+</aiml>

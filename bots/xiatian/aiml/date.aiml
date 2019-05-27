@@ -51,6 +51,17 @@
 
 
     <category>
+        <pattern>今天几月份</pattern>
+        <pattern>今天几月</pattern>
+        <pattern>现在几月份</pattern>
+        <pattern>现在是几月份</pattern>
+        <pattern>现在几月</pattern>
+        <template>
+            现在是<date format="M"/>月.
+        </template>
+    </category>
+
+    <category>
         <pattern>今天的日期</pattern>
         <pattern>今天几号</pattern>
         <pattern>今天几月几号</pattern>
@@ -87,7 +98,20 @@
     </category>
 
     <category>
+        <pattern>后天的日期</pattern>
+        <pattern>后天几号</pattern>
+        <pattern>后天几月几号</pattern>
+        <pattern>后天星期几</pattern>
+        <pattern>后天是星期几</pattern>
+        <template>
+            后天是<date format="yyyy年M月d日">2 day after</date>，
+            <date format="week">2 day after</date>
+        </template>
+    </category>
+
+    <category>
         <pattern>几点了</pattern>
+        <pattern>现在是几点</pattern>
         <pattern>现在几点</pattern>
         <template>
             现在是北京时间<date format="HH点mm分ss秒"/>

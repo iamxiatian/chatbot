@@ -21,6 +21,16 @@ buildInfoKeys += buildInfoBuildNumber
 buildInfoOptions += BuildInfoOption.BuildTime
 buildInfoOptions += BuildInfoOption.ToJson
 
+//akka
+val akkaVersion = "2.5.21"
+
+libraryDependencies += "com.typesafe.akka" %% "akka-actor" % akkaVersion
+libraryDependencies += "com.typesafe.akka" %% "akka-remote" % akkaVersion
+libraryDependencies += "com.typesafe.akka" %% "akka-slf4j" % akkaVersion
+libraryDependencies += "com.typesafe.akka" %% "akka-http" % "10.1.7"
+//akka http 跨域访问
+libraryDependencies += "ch.megard" %% "akka-http-cors" % "0.4.0"
+
 libraryDependencies += "com.typesafe" % "config" % "1.3.3"
 
 //XML support
@@ -46,6 +56,7 @@ libraryDependencies += "org.docx4j" % "docx4j" % "6.1.0"
 libraryDependencies += "com.hankcs" % "hanlp" % "portable-1.7.1"
 
 libraryDependencies += "org.rocksdb" % "rocksdbjni" % "5.7.2"
+libraryDependencies += "com.outr" %% "lucene4s" % "1.8.1"
 
 //Baidu AI library
 libraryDependencies += "com.baidu.aip" % "java-sdk" % "4.10.0"
@@ -53,6 +64,9 @@ libraryDependencies += "com.baidu.aip" % "java-sdk" % "4.10.0"
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3"
 libraryDependencies += "ch.qos.logback" % "logback-core" % "1.2.3"
 libraryDependencies += "com.google.guava" % "guava" % "24.0-jre"
+
+//scala语法的简单的HTTP包
+libraryDependencies += "org.scalaj" %% "scalaj-http" % "2.4.1"
 
 //CIRCE JSON Parser
 libraryDependencies ++= Seq(
@@ -82,6 +96,8 @@ mappings in(Compile, packageDoc) := Seq()
 //mappings in Universal += file("my.conf") -> "my.conf"
 mappings in Universal ++= directory("web")
 mappings in Universal ++= directory("conf")
+mappings in Universal ++= directory("bots")
+mappings in Universal ++= directory("data")
 
 javaOptions in Universal ++= Seq(
   // -J params will be added as jvm parameters
