@@ -1,7 +1,6 @@
 package xiatian.chatbot.aiml
 
 import xiatian.chatbot.aiml.AimlParser.recurseParse
-import xiatian.chatbot.db.MedicineDb
 import xiatian.chatbot.graph.MatchContext
 
 import scala.xml.Elem
@@ -23,7 +22,7 @@ object WikiParser {
     val `type` = (node \ "@type").headOption.map(_.text).getOrElse("default")
     `type` match {
       case "yao" =>
-        MedicineDb.getYao(content).getOrElse(s"尚无解释:$content")
+        s"尚无解释:$content"
       case _ =>
         content
     }

@@ -30,7 +30,7 @@ case class Chat(customerId: String, bot: Bot) extends Logging {
     val sentences = QuestionInput.splitSentence(request)
     val response = sentences.flatMap {
       t =>
-        val input = InputSimplify.simplify(t)
+        val input = InputSimplify.simplify(bot.substitution.normalize(t))
         respond(input, contextThatHistory)
     }.mkString("\n")
 

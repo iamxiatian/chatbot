@@ -31,6 +31,7 @@
     - [DONE] 支持多个人的同时会话(chat session)
     - [DONE] 多个response的random处理
     - [DONE] template的基本解析
+    - [DONE] AIML增加term语法，实现词性匹配
     - [PART] 会话历史的处理
     - [ ] Bot会话中知识的学习(set/get的处理)
     - [ ] srai循环处理标签
@@ -57,7 +58,10 @@
     - 音乐播放/歌词 ...
 
 4. 问句分析失败后的检索补充处理
-    - Lucene处理 
+    - [DONE] Lucene处理
+    	对问句和答案构建索引库，对于输入的问句，去掉虚词和辅助词语，拆分成词语列表，以OR方式进行检索，对检索结果的TopN条问句进行相似度计算，计算结果最高的问句作为结果返回。
+    -[] 拼音处理：相同拼音也能关联上问答对
+    
 
 5. 专业领域支持
     - [DONE]药品症状数据的知识抽取（整理成百科形式）
@@ -68,11 +72,14 @@
 6. 基于深度学习的通用对话逻辑(TODO)
     - 利用doc2vec训练每一个问句，生成句子向量PV(Paragraph Vector)，然后当匹配不成功时，
     利用PV寻找最接近的问句pattern
-    
-    
+
 7. TODO:
    1. 根据抽取出的药品、疾病和症状数据，获取其对应的解释文本
    2. 药品、疾病和症状数据的分词处理 
+
+## 测试
+
+ curl -X POST -i http://localhost:6666/api/input --data '今天周几'
 
 ## 参考资料
 
@@ -85,5 +92,5 @@
    A java library for reading mp3 files and manipulating mp3 file ID3 tags (ID3v1 and ID3v2.2 to
    		ID3v2.4). https://github.com/mpatric/mp3agic
    		
-   		
-   		
+   ​		
+   ​		

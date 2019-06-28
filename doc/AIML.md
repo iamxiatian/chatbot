@@ -49,3 +49,13 @@ https://www.tutorialspoint.com/aiml/aiml_topic_tag.htm
 </category>
 ```
 
+## regex
+
+<category>
+<pattern>\d * \d 等于几</pattern>
+<template>
+
+</template>
+</category>
+
+

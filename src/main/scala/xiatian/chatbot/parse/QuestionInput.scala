@@ -15,7 +15,7 @@ object QuestionInput {
     */
   def splitSentence(input: String): List[String] = List(input)
 
-  def extractTopics(input: String): List[String] = Segment.seg(input)
+  def extractTopics(input: String): List[String] = NLP.segment(input)
     .filter {
       t => t.nature.toString.startsWith("n")
     }.map(_.word).toList
@@ -30,7 +30,7 @@ object QuestionInput {
     * @return
     */
   def splitWords(sentence: String): List[(String, String)] = {
-    val terms = Segment.seg(sentence).filter {
+    val terms = NLP.segment(sentence).filter {
       term =>
         val word = term.word
         val nature = term.nature.toString

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0" enabled="false">
+
+    <category type="ext">
+        <pattern>[省份]的地方性法规有哪些？</pattern>
+        <pattern>[省份]有哪些地方性法规？</pattern>
+        <template>
+            [省份]
+        </template>
+    </category>
+
+    <category type="ext">
+        <pattern>[法规 id="1"] [gap max="3"] [数字]？</pattern>
+        <template>
+            你好啊！
+        </template>
+    </category>
+
+</aiml>

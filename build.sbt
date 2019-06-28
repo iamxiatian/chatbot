@@ -56,7 +56,23 @@ libraryDependencies += "org.docx4j" % "docx4j" % "6.1.0"
 libraryDependencies += "com.hankcs" % "hanlp" % "portable-1.7.1"
 
 libraryDependencies += "org.rocksdb" % "rocksdbjni" % "5.7.2"
-libraryDependencies += "com.outr" %% "lucene4s" % "1.8.1"
+
+//Lucene
+libraryDependencies += "org.apache.lucene" % "lucene-core" % "8.1.0"
+libraryDependencies += "org.apache.lucene" % "lucene-analyzers-common" % "8.1.0"
+
+libraryDependencies += "org.apache.lucene" % "lucene-queryparser" % "8.1.0"
+libraryDependencies += "org.apache.lucene" % "lucene-queries" % "8.1.0"
+libraryDependencies += "org.apache.lucene" % "lucene-misc" % "8.1.0"
+libraryDependencies += "org.apache.lucene" % "lucene-spatial" % "8.1.0"
+libraryDependencies += "org.apache.lucene" % "lucene-suggest" % "8.1.0"
+
+libraryDependencies ++= Seq(
+  "com.typesafe.slick" %% "slick" % "3.3.0",
+  "com.typesafe.slick" %% "slick-hikaricp" % "3.3.0"
+)
+libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.34"
+
 
 //Baidu AI library
 libraryDependencies += "com.baidu.aip" % "java-sdk" % "4.10.0"
@@ -74,6 +90,9 @@ libraryDependencies ++= Seq(
   "io.circe" %% "circe-generic",
   "io.circe" %% "circe-parser"
 ).map(_ % "0.10.1")
+
+libraryDependencies += "com.alibaba" % "fastjson" % "1.2.58"
+
 
 //Scala Test library
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % "test"
