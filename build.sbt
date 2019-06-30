@@ -5,6 +5,7 @@ version := "1.6"
 scalaVersion := "2.12.3"
 sbtVersion := "1.2.1"
 scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8")
+javacOptions := Seq("-encoding", "UTF-8")
 
 lazy val root = (project in file(".")).
   enablePlugins(BuildInfoPlugin).
