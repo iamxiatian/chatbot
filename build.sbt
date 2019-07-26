@@ -2,8 +2,8 @@ organization := "xiatian"
 name := "chatbot"
 version := "1.6"
 
-scalaVersion := "2.12.3"
-sbtVersion := "1.2.1"
+scalaVersion := "2.12.8"
+sbtVersion := "1.2.8"
 scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8")
 javacOptions := Seq("-encoding", "UTF-8")
 
@@ -23,7 +23,7 @@ buildInfoOptions += BuildInfoOption.BuildTime
 buildInfoOptions += BuildInfoOption.ToJson
 
 //akka
-val akkaVersion = "2.5.21"
+val akkaVersion = "2.5.23"
 
 libraryDependencies += "com.typesafe.akka" %% "akka-actor" % akkaVersion
 libraryDependencies += "com.typesafe.akka" %% "akka-remote" % akkaVersion

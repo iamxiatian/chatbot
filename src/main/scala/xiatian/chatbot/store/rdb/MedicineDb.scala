@@ -9,26 +9,20 @@ import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
 
 /**
-  * 直接执行MySQL语法的便捷工具
+  * 处理医药数据
   *
-  * @tparam T
   */
-object MysqlShell extends Logging {
+object MedicineDb extends Logging {
 
   import slick.jdbc.MySQLProfile.api._
 
   val profile = MySQLProfile
 
-  val db: Database = Database.forConfig("db.mysql.baidu", MyConf.config)
+  val db: Database = Database.forConfig("db.mysql.medicine", MyConf.config)
 
   def close(): Unit = {
     if (db != null)
       db.close()
-  }
-
-  def export(): Future[Seq[(String, String)]] = db run {
-    sql"""select question, answer from view_zewen"""
-      .as[(String, String)]
   }
 
   /**
@@ -37,7 +31,7 @@ object MysqlShell extends Logging {
     * @return
     */
   def indexMedicine(lastId: Int = 0): Unit = {
-    val items = processOneBatch(lastId)
+    val items = readOneBatch(lastId)
     if (items.size > 0) {
       println(s"process $lastId ...")
       val faqs = items.map {
@@ -52,7 +46,7 @@ object MysqlShell extends Logging {
   }
 
 
-  private def processOneBatch(lastId: Int = 0): Seq[(Int, String, String)] = {
+  private def readOneBatch(lastId: Int = 0): Seq[(Int, String, String)] = {
     val f: Future[Seq[(Int, String, String)]] = db run (
       sql"""SELECT Id, Title, Answer FROM questions_and_answers_on_diseases WHERE Id > $lastId LIMIT 1000;"""
         .as[(Int, String, String)])
@@ -61,14 +55,6 @@ object MysqlShell extends Logging {
   }
 
   def main(args: Array[String]): Unit = {
-    //导出法规内容
-    val faqs = Await.result(export(), Duration.Inf)
-
-    val text = faqs.map {
-      case (q, a) =>
-        s"===============\n$q\n$a"
-    }.mkString("\n")
-
-    File("./data/faq/fagui.txt").writeText(text)
+    indexMedicine(0)
   }
 }

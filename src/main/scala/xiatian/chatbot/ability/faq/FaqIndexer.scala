@@ -46,11 +46,50 @@ class FaqIndexer(indexDir: Path) {
 }
 
 object FaqIndexer {
-  def main(args: Array[String]): Unit = {
-    val faqs = Faq.load("./data/faq/fagui.txt")
+  def index(faqs: Seq[Faq]): Unit = {
     val indexer = new FaqIndexer(File("./data/faq/index").path)
     faqs.foreach(faq => indexer.index(faq))
     indexer.close()
-    println("DONE.")
+    FaqBot.refresh()
   }
+
+  def main(args: Array[String]): Unit = {
+    //    val faqs = Faq.load("./data/faq/fagui.txt")
+    //    val indexer = new FaqIndexer(File("./data/faq/index").path)
+    //    faqs.foreach(faq => indexer.index(faq))
+    //    indexer.close()
+    //    println("DONE.")
+    case class Config(faqFile: Option[java.io.File] = None)
+
+    val parser = new scopt.OptionParser[Config]("bin/faq-indexer") {
+      opt[java.io.File]('f', "faqFile")
+        .action((x, c) => c.copy(faqFile = Some(x)))
+        .text("file to be added.")
+
+      note("\n xiatian, xia@ruc.edu.cn.")
+    }
+
+    parser.parse(args, Config()) match {
+      case Some(config) =>
+        if (config.faqFile.nonEmpty) {
+          if (config.faqFile.get.isFile && config.faqFile.get.exists) {
+            println(s"parse faq: ${config.faqFile.get.getCanonicalPath}")
+            print("... ")
+            val faqs = Faq.load(config.faqFile.get.getCanonicalPath)
+            index(faqs)
+            println("DONE.")
+          } else {
+            println("faq training file does not exist or not a file")
+            println(s"  ==> faqFile:  ${config.faqFile.get.getCanonicalPath}")
+          }
+        } else {
+          parser.showUsage()
+        }
+      case None =>
+        println("not valid parameters.")
+        parser.showUsage()
+    }
+  }
+
+
 }

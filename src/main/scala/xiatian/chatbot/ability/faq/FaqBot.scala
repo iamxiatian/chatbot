@@ -3,9 +3,14 @@ package xiatian.chatbot.ability.faq
 import xiatian.chatbot.conf.{Logging, MyConf}
 
 object FaqBot extends Logging {
-  val searcher: FaqSearcher = new FaqSearcher()
+  var searcher: FaqSearcher = new FaqSearcher()
 
   val enabled = MyConf.getBoolean("bot.faq.enabled")
+
+  def refresh(): Unit ={
+    searcher.close()
+    searcher = new FaqSearcher()
+  }
 
   /**
     * 学习一条FAQ，目前是把FAQ加入到索引库中完成

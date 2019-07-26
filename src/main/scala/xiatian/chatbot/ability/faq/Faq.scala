@@ -28,7 +28,7 @@ object Faq {
   def termArray(s: String): Seq[String] =
     NLP.segByCnChars(s).filter(!NLP.isBiaodian(_))
 
-  def load(filename: String): Set[Faq] = {
+  def load(filename: String): Seq[Faq] = {
     val faqs = mutable.Set.empty[Faq]
     val lines = File(filename).lines(StandardCharsets.UTF_8).toArray
 
@@ -53,7 +53,7 @@ object Faq {
       } else lineno += 1
     }
 
-    faqs.toSet
+    faqs.toSeq
   }
 }
 
