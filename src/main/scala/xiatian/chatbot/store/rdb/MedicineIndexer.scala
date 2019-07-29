@@ -39,7 +39,7 @@ object MedicineIndexer extends Logging {
           Faq(q, a, domain = "Medicine")
       }
       FaqIndexer.index(faqs)
-      indexMedicine(items.last._1 + 1)
+      indexMedicine(items.last._1)
     } else {
       println("DONE!")
     }
