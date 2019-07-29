@@ -7,10 +7,8 @@ sbtVersion := "1.2.8"
 scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8")
 javacOptions := Seq("-encoding", "UTF-8")
 
-lazy val root = (project in file(".")).
-  enablePlugins(BuildInfoPlugin).
-  settings(
-    buildInfoKeys := BuildInfoKey.ofN(name, version, scalaVersion, sbtVersion),
+lazy val root = (project in file(".")).enablePlugins(BuildInfoPlugin).settings(
+    buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
     buildInfoPackage := "xiatian.chatbot"
   )
 
@@ -18,7 +16,7 @@ buildInfoKeys ++= Seq[BuildInfoKey](
   "author" -> "XiaTian"
 )
 
-buildInfoKeys += buildInfoBuildNumber
+//buildInfoKeys += buildInfoBuildNumber
 buildInfoOptions += BuildInfoOption.BuildTime
 buildInfoOptions += BuildInfoOption.ToJson
 
