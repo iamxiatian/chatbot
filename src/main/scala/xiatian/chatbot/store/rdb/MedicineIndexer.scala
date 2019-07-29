@@ -12,7 +12,7 @@ import scala.concurrent.{Await, Future}
   * 处理医药数据
   *
   */
-object MedicineDb extends Logging {
+object MedicineIndexer extends Logging {
 
   import slick.jdbc.MySQLProfile.api._
 

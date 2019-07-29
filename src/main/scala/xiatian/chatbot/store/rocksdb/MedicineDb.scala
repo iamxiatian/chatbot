@@ -52,11 +52,11 @@ object MedicineDb extends BaseRocksDb("medicine db") {
     }
   }
 
-  def main(args: Array[String]): Unit = {
-    //build()
-    println(getYao("抗感染药物"))
-    close()
-  }
+//  def main(args: Array[String]): Unit = {
+//    //build()
+//    println(getYao("抗感染药物"))
+//    close()
+//  }
 
   def getYao(yao: String): Option[String] = getString(medicineHandler, yao)
 }
