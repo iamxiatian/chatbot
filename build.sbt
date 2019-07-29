@@ -7,6 +7,9 @@ sbtVersion := "1.2.8"
 scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8")
 javacOptions := Seq("-encoding", "UTF-8")
 
+
+resolvers += "Sonatype Releases" at "https://oss.sonatype.org/content/repositories/releases/"
+
 lazy val root = (project in file(".")).enablePlugins(BuildInfoPlugin).settings(
     buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
     buildInfoPackage := "xiatian.chatbot"
@@ -96,8 +99,6 @@ libraryDependencies += "com.alibaba" % "fastjson" % "1.2.58"
 //Scala Test library
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % "test"
 libraryDependencies += "junit" % "junit" % "4.12"
-
-resolvers += "Sonatype Releases" at "https://oss.sonatype.org/content/repositories/releases/"
 
 scalacOptions in Test ++= Seq("-Yrangepos")
 
