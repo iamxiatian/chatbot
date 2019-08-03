@@ -36,7 +36,7 @@ object MedicineIndexer extends Logging {
       println(s"process $lastId ...")
       val faqs = items.map {
         case (_, q, a) =>
-          Faq(q, a, domain)
+          Faq(q, a, Faq.TYPE_PLAIN_TEXT, domain)
       }
       FaqIndexer.index(faqs)
       learning(items.last._1, domain)

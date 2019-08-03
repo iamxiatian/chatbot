@@ -9,8 +9,8 @@ import scala.collection.mutable
 
 case class Faq(question: String,
                answer: String,
-               answerType: String = Faq.TYPE_PLAIN_TEXT,
-               domain: String = "general") {
+               answerType: String,
+               domain: String) {
   def termString(): String = Faq.termString(question)
 
 }
@@ -49,7 +49,7 @@ object Faq {
           lineno += 1
         }
 
-        faqs += Faq(question, sb.toString)
+        faqs += Faq(question, sb.toString, Faq.TYPE_PLAIN_TEXT, "wangxin")
       } else lineno += 1
     }
 

@@ -40,7 +40,8 @@ object BotController extends JsonSupport {
     }
 
   private def process(text: String, domain: String) = {
-    LOG.info(s"input: $text")
+    //LOG.info(s"input: $text, domain: $domain")
+    println(s"input: $text, domain: $domain")
 
     // 优先调用法规库
     val chatReply = LawBot.request(text) match {
