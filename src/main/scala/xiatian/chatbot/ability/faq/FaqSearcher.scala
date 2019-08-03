@@ -18,7 +18,15 @@ class FaqSearcher(indexDir: Path = File("./data/faq/index").path) {
 
   private val searcher: IndexSearcher = new IndexSearcher(reader)
 
-  def search(q: String, topN: Int = 5): Seq[Faq] = {
+  /**
+    * @param q                检索条件
+    * @param domainFieldValue 隶属的领域，多个领域之间用逗号分割，例如: general,medicine
+    * @param topN
+    * @return
+    */
+  def search(q: String,
+             domainFieldValue: Option[String],
+             topN: Int = 5): Seq[Faq] = {
     val terms: Seq[TermQuery] = Faq.termArray(q).map {
       term =>
         new TermQuery(new Term("q", term))
@@ -26,12 +34,38 @@ class FaqSearcher(indexDir: Path = File("./data/faq/index").path) {
 
     val builder: BooleanQuery.Builder = new BooleanQuery.Builder()
 
-    terms foreach {
+    terms.foreach {
       term =>
         builder.add(term, BooleanClause.Occur.SHOULD)
     }
 
-    val query: BooleanQuery = builder.build()
+    //val query: BooleanQuery = builder.build()
+    val domains: Set[String] = domainFieldValue.toList.flatMap {
+      text =>
+        text.split(",").map(_.trim).filter(_.nonEmpty)
+    }.toSet
+
+    val query: BooleanQuery = if (domains.isEmpty || domains.contains("all")) {
+      builder.build()
+    } else {
+      val domainBuilder: BooleanQuery.Builder = new BooleanQuery.Builder()
+      domains.foreach {
+        d =>
+          domainBuilder.add(
+            new TermQuery(new Term("domain", d)),
+            BooleanClause.Occur.SHOULD)
+      }
+      val domainQuery: BooleanQuery = domainBuilder.build()
+
+      //val domainClause = new TermQuery(new Term("domain", domain.get))
+      new BooleanQuery.Builder()
+        .add(domainQuery, BooleanClause.Occur.MUST)
+        .add(builder.build(), BooleanClause.Occur.SHOULD)
+        .build()
+    }
+
+    println(query.toString())
+
     val hits: Array[ScoreDoc] = searcher.search(query, topN).scoreDocs
     hits.map {
       hit =>
@@ -55,7 +89,8 @@ class FaqSearcher(indexDir: Path = File("./data/faq/index").path) {
 object FaqSearcher {
   def main(args: Array[String]): Unit = {
     val searcher = new FaqSearcher()
-    searcher.search("请问保密工作的基本方针是什么?")
+    val faqs = searcher.search("请问保密工作的基本方针是什么?", Some(""))
+    faqs.foreach(println)
     searcher.close()
   }
 }

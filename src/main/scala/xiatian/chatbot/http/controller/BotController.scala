@@ -24,35 +24,42 @@ object BotController extends JsonSupport {
   ).asJson, code)
 
   def route: Route =
-    (path("api" / "input") & post & cors(settings)) {
-      entity(as[String]) {
-        text =>
-          LOG.info(s"input: $text")
-
-          // 优先调用法规库
-          val chatReply = LawBot.request(text) match {
-            case Some(msg) => msg
-            case None => chat.chat(text.trim)
+    (path("api" / "input") & (post | get) & cors(settings)) {
+      parameters('domain.as[String] ? "") {
+        domain =>
+          entity(as[String]) {
+            text =>
+              process(text, domain)
           }
-
-          if (chatReply.isEmpty) {
-            //进一步测试FaqBot
-            FaqBot.request(text.trim) match {
-              case Some(faq) =>
-                writeResult(text, faq, "FAQ")
-              case None =>
-                //访问zhishi.me
-                val baike = ZhishiBot.request(text)
-                if (baike.nonEmpty) {
-                  writeResult(text, baike.get, "ZHISHI")
-                } else TuringBot.request(text) match { //FAQ之后继续测试TuringBot
-                  case Some(r) =>
-                    writeResult(text, r, "TURING")
-                  case None =>
-                    writeResult(text, "对不起，我没有理解您的意思。", CODE_ERROR)
-                }
-            }
-          } else writeResult(text, chatReply, CODE_SUCCESS)
       }
     }
+
+  private def process(text: String, domain: String) = {
+    LOG.info(s"input: $text")
+
+    // 优先调用法规库
+    val chatReply = LawBot.request(text) match {
+      case Some(msg) => msg
+      case None => chat.chat(text.trim)
+    }
+
+    if (chatReply.isEmpty) {
+      //进一步测试FaqBot
+      FaqBot.request(text.trim) match {
+        case Some(faq) =>
+          writeResult(text, faq, "FAQ")
+        case None =>
+          //访问zhishi.me
+          val baike = ZhishiBot.request(text)
+          if (baike.nonEmpty) {
+            writeResult(text, baike.get, "ZHISHI")
+          } else TuringBot.request(text) match { //FAQ之后继续测试TuringBot
+            case Some(r) =>
+              writeResult(text, r, "TURING")
+            case None =>
+              writeResult(text, "对不起，我没有理解您的意思。", CODE_ERROR)
+          }
+      }
+    } else writeResult(text, chatReply, CODE_SUCCESS)
+  }
 }

@@ -10,7 +10,7 @@ import scala.collection.mutable
 case class Faq(question: String,
                answer: String,
                answerType: String = Faq.TYPE_PLAIN_TEXT,
-               domain: String = "General") {
+               domain: String = "general") {
   def termString(): String = Faq.termString(question)
 
 }

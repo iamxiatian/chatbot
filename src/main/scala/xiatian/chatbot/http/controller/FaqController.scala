@@ -30,8 +30,9 @@ object FaqController extends JsonSupport {
                   val p = item.asObject.get
                   val question: String = p("question").get.as[String].getOrElse("")
                   val answer: String = p("answer").get.as[String].getOrElse("")
+                  val domain: String = p("domain").get.as[String].getOrElse("General")
                   if (question.nonEmpty && answer.nonEmpty) {
-                    Option(Faq(question, answer))
+                    Option(Faq(question, answer, domain))
                   } else {
                     LOG.error("JSON文件中的question或answer不存在")
                     None

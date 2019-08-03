@@ -26,6 +26,12 @@ class FaqIndexer(indexDir: Path) {
   queryFieldType.setStoreTermVectors(false)
   queryFieldType.setTokenized(true)
 
+  val termFieldType = new FieldType()
+  termFieldType.setIndexOptions(IndexOptions.DOCS)
+  termFieldType.setStored(true)
+  termFieldType.setStoreTermVectors(true)
+  termFieldType.setTokenized(false)
+
   def index(faq: Faq): Unit = {
     val doc = new Document()
 
@@ -34,8 +40,8 @@ class FaqIndexer(indexDir: Path) {
 
     doc.add(new StoredField("question", faq.question))
     doc.add(new StoredField("answer", faq.answer))
-    doc.add(new StoredField("answerType", faq.answerType))
-    doc.add(new StoredField("domain", faq.domain))
+    doc.add(new Field("answerType", faq.answerType, termFieldType))
+    doc.add(new Field("domain", faq.domain, termFieldType))
 
     writer.addDocument(doc)
   }
@@ -54,11 +60,6 @@ object FaqIndexer {
   }
 
   def main(args: Array[String]): Unit = {
-    //    val faqs = Faq.load("./data/faq/fagui.txt")
-    //    val indexer = new FaqIndexer(File("./data/faq/index").path)
-    //    faqs.foreach(faq => indexer.index(faq))
-    //    indexer.close()
-    //    println("DONE.")
     case class Config(faqFile: Option[java.io.File] = None)
 
     val parser = new scopt.OptionParser[Config]("bin/faq-indexer") {

@@ -26,20 +26,20 @@ object MedicineIndexer extends Logging {
   }
 
   /**
-    * 临时性从特定数据库导出问答对
+    * 从医药数据库导出问答对进行Faq学习
     *
     * @return
     */
-  def indexMedicine(lastId: Int = 0): Unit = {
+  def learning(lastId: Int = 0, domain: String = "medicine"): Unit = {
     val items = readOneBatch(lastId)
     if (items.size > 0) {
       println(s"process $lastId ...")
       val faqs = items.map {
         case (_, q, a) =>
-          Faq(q, a, domain = "Medicine")
+          Faq(q, a, domain)
       }
       FaqIndexer.index(faqs)
-      indexMedicine(items.last._1)
+      learning(items.last._1, domain)
     } else {
       println("DONE!")
     }
@@ -55,6 +55,6 @@ object MedicineIndexer extends Logging {
   }
 
   def main(args: Array[String]): Unit = {
-    indexMedicine(0)
+    learning(0)
   }
 }

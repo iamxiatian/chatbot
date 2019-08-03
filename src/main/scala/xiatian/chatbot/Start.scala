@@ -13,7 +13,7 @@ import scala.io.StdIn
   */
 object Start extends App {
 
-  val parser = new scopt.OptionParser[Config]("bin/spider") {
+  val parser = new scopt.OptionParser[Config]("bin/chatbot") {
     head(s"${BuildInfo.name}", s"${BuildInfo.version}")
 
     import org.joda.time.format.{DateTimeFormat, DateTimeFormatter}

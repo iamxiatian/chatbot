@@ -22,7 +22,7 @@ object FaqBot extends Logging {
   }
 
   def request(input: String): Option[String] = {
-    searcher.search(input, 3).flatMap {
+    searcher.search(input, None, 3).flatMap {
       faq =>
         val sim = similarity(input, faq.question)
         println(s"$input -- ${faq.question}, $sim")
