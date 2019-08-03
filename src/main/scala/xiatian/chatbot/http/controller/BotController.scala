@@ -24,13 +24,18 @@ object BotController extends JsonSupport {
   ).asJson, code)
 
   def route: Route =
-    (path("api" / "input") & (post | get) & cors(settings)) {
+    (path("api" / "input") & post & cors(settings)) {
       parameters('domain.as[String] ? "") {
         domain =>
           entity(as[String]) {
             text =>
               process(text, domain)
           }
+      }
+    } ~ (path("api" / "input") & get & cors(settings)) {
+      parameters('q.as[String], 'domain.as[String] ? "") {
+        case (q, domain) =>
+          process(q, domain)
       }
     }
 
