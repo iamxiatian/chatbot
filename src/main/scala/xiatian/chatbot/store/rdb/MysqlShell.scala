@@ -42,7 +42,7 @@ object MysqlShell extends Logging {
       println(s"process $lastId ...")
       val faqs = items.map {
         case (_, q, a) =>
-          Faq(q, a, domain = "Medicine")
+          Faq(q, a, Faq.TYPE_PLAIN_TEXT, "medicine")
       }
       FaqIndexer.index(faqs)
       indexMedicine(items.last._1 + 1)
