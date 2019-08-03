@@ -50,7 +50,7 @@ object BotController extends JsonSupport {
 
     if (chatReply.isEmpty) {
       //进一步测试FaqBot
-      FaqBot.request(text.trim) match {
+      FaqBot.request(text.trim, domain) match {
         case Some(faq) =>
           writeResult(text, faq, "FAQ")
         case None =>

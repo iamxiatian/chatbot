@@ -7,7 +7,7 @@ object FaqBot extends Logging {
 
   val enabled = MyConf.getBoolean("bot.faq.enabled")
 
-  def refresh(): Unit ={
+  def refresh(): Unit = {
     searcher.close()
     searcher = new FaqSearcher()
   }
@@ -21,8 +21,8 @@ object FaqBot extends Logging {
 
   }
 
-  def request(input: String): Option[String] = {
-    searcher.search(input, None, 3).flatMap {
+  def request(input: String, domain: String): Option[String] = {
+    searcher.search(input, Option(domain), 3).flatMap {
       faq =>
         val sim = similarity(input, faq.question)
         println(s"$input -- ${faq.question}, $sim")
@@ -40,8 +40,8 @@ object FaqBot extends Logging {
   }
 
   def main(args: Array[String]): Unit = {
-    println(FaqBot.request("保密工作遵循什么原则？"))
+    println(FaqBot.request("保密工作遵循什么原则？", "all"))
 
-    println(FaqBot.request("安全生产监督管理局的职能是什么"))
+    println(FaqBot.request("安全生产监督管理局的职能是什么", "all"))
   }
 }
