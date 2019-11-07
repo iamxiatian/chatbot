@@ -1,14 +1,5 @@
-# Chatbot技术文档
-
-https://www.tutorialspoint.com/aiml/aiml_topic_tag.htm
-
-## 训练
-
-对于FAQ格式的数据，需要以JSON形式组织原始素材，格式如下：
-
-```json
 {
-  "name": "数据集的名称，数据整理人员自己设置，方便沟通交流",
+  "name": "FAQ数据集的名称，数据整理人员自己设置，方便沟通交流",
   "contributor": "数据集整理人员",
   "date": "整理日期， 如2019-11-07",
   "source": "数据来源说明，如某个网站的名称及URL",
@@ -43,5 +34,3 @@ https://www.tutorialspoint.com/aiml/aiml_topic_tag.htm
     }
   ]
 }
-```
-

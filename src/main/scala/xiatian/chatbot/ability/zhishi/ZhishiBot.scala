@@ -14,6 +14,9 @@ import scala.collection.JavaConverters._
 import scala.collection.mutable
 import scala.util.{Failure, Success, Try}
 
+/**
+  * 集成zhishi.me的图谱数据，利用该数据进行问答的机器人
+  */
 object ZhishiBot extends Logging {
   def fetch(entity: String): Option[JSONObject] = Try {
     val url = s"http://zhishi.me/api/entity/${URLEncoder.encode(entity, "utf-8")}"

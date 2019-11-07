@@ -120,8 +120,8 @@ mappings in Universal ++= directory("data")
 
 javaOptions in Universal ++= Seq(
   // -J params will be added as jvm parameters
-  "-J-Xms4G",
-  "-J-Xmx8G"
+  "-J-Xms2G",
+  "-J-Xmx3G"
 )
 
 //解决windows的line too long问题
