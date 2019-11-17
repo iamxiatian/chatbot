@@ -1,4 +1,4 @@
-package xiatian.chatbot.chat
+package xiatian.chatbot.bot.chat
 
 import xiatian.chatbot.conf.Logging
 

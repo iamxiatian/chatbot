@@ -3,7 +3,7 @@ package xiatian.chatbot.ability.faq
 import java.nio.charset.StandardCharsets
 
 import better.files.File
-import xiatian.chatbot.parse.NLP
+import xiatian.chatbot.bot.parse.NLP
 
 import scala.collection.mutable
 

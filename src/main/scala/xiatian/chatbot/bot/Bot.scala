@@ -1,9 +1,9 @@
 package xiatian.chatbot.bot
 
 import better.files.File
-import xiatian.chatbot.aiml.AimlParser
+import xiatian.chatbot.bot.aiml.AimlParser
 import xiatian.chatbot.conf.{Logging, MyConf}
-import xiatian.chatbot.graph.GraphMaster
+import xiatian.chatbot.bot.graph.GraphMaster
 
 /**
   * Class representing the AIML bot

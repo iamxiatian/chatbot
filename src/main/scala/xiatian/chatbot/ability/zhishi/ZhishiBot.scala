@@ -7,7 +7,7 @@ import com.google.common.base.Charsets
 import com.google.common.hash.Hashing
 import scalaj.http.{Http, HttpResponse}
 import xiatian.chatbot.conf.Logging
-import xiatian.chatbot.parse.{InputSimplify, NLP}
+import xiatian.chatbot.bot.parse.{InputSimplify, NLP}
 import xiatian.chatbot.store.rocksdb.CacheDb
 
 import scala.collection.JavaConverters._
@@ -40,7 +40,7 @@ object ZhishiBot extends Logging {
           CacheDb.cache(md5, body)
           val json = JSON.parseObject(body)
           Option(json)
-        } else if (response == 404) {
+        } else if (response.code == 404) {
           //不存在
           CacheDb.cache(md5, "")
           None

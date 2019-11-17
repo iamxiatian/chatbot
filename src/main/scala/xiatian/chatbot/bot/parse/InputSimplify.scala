@@ -1,4 +1,4 @@
-package xiatian.chatbot.parse
+package xiatian.chatbot.bot.parse
 
 import better.files.File
 import xiatian.chatbot.bot.Substitution

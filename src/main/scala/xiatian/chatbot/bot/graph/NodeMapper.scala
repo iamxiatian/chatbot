@@ -1,4 +1,4 @@
-package xiatian.chatbot.graph
+package xiatian.chatbot.bot.graph
 
 import xiatian.chatbot.conf.MagicValues
 import xiatian.chatbot.entity.Category

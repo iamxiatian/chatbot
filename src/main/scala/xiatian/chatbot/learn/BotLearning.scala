@@ -1,4 +1,4 @@
-package xiatian.chatbot
+package xiatian.chatbot.learn
 
 import better.files.File
 import xiatian.chatbot.ability.faq.{Faq, FaqIndexer}

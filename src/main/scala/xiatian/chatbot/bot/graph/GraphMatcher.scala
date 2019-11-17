@@ -1,4 +1,4 @@
-package xiatian.chatbot.graph
+package xiatian.chatbot.bot.graph
 
 /**
   * 匹配处理的特质，包括：

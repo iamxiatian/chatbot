@@ -1,8 +1,8 @@
-package xiatian.chatbot.chat
+package xiatian.chatbot.bot.chat
 
 import xiatian.chatbot.bot.Bot
 import xiatian.chatbot.conf.{Logging, MagicValues}
-import xiatian.chatbot.parse.{InputSimplify, QuestionInput}
+import xiatian.chatbot.bot.parse.{InputSimplify, QuestionInput}
 
 /**
   * Class encapsulating a chat session between a bot and a client

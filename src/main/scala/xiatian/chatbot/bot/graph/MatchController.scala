@@ -1,4 +1,4 @@
-package xiatian.chatbot.graph
+package xiatian.chatbot.bot.graph
 
 /**
   * 控制在GraphMaster树上的匹配过程的控制器

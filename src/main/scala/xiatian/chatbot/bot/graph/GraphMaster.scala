@@ -1,4 +1,4 @@
-package xiatian.chatbot.graph
+package xiatian.chatbot.bot.graph
 
 import java.util.concurrent.atomic.AtomicInteger
 

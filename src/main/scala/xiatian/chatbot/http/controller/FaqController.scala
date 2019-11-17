@@ -11,9 +11,9 @@ import xiatian.chatbot.ability.faq.{Faq, FaqBot, FaqIndexer}
 import xiatian.chatbot.ability.law.LawBot
 import xiatian.chatbot.ability.zhishi.ZhishiBot
 import xiatian.chatbot.bot.Bot
-import xiatian.chatbot.chat.Chat
+import xiatian.chatbot.bot.chat.Chat
 import xiatian.chatbot.http.support.JsonSupport
-import xiatian.chatbot.parse.QuestionInput
+import xiatian.chatbot.bot.parse.QuestionInput
 
 object FaqController extends JsonSupport {
 

@@ -1,7 +1,7 @@
-package xiatian.chatbot.aiml
+package xiatian.chatbot.bot.aiml
 
-import xiatian.chatbot.aiml.AimlParser.recurseParse
-import xiatian.chatbot.graph.MatchContext
+import xiatian.chatbot.bot.aiml.AimlParser.recurseParse
+import xiatian.chatbot.bot.graph.MatchContext
 
 import scala.xml.Elem
 

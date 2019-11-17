@@ -1,7 +1,7 @@
-package xiatian.chatbot.aiml
+package xiatian.chatbot.bot.aiml
 
 import xiatian.chatbot.conf.Logging
-import xiatian.chatbot.graph.MatchContext
+import xiatian.chatbot.bot.graph.MatchContext
 
 import scala.util.Random
 import scala.xml.{Elem, Node, Text}

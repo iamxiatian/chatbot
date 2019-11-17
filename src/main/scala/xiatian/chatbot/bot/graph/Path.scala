@@ -1,7 +1,7 @@
-package xiatian.chatbot.graph
+package xiatian.chatbot.bot.graph
 
 import xiatian.chatbot.bot.Substitution
-import xiatian.chatbot.parse.QuestionInput
+import xiatian.chatbot.bot.parse.QuestionInput
 
 /**
   * Representation of Pattern Path and Input Path

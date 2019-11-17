@@ -1,4 +1,4 @@
-package xiatian.chatbot.parse
+package xiatian.chatbot.bot.parse
 
 import java.nio.charset.StandardCharsets
 

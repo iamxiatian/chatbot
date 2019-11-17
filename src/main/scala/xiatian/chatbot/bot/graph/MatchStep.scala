@@ -1,4 +1,4 @@
-package xiatian.chatbot.graph
+package xiatian.chatbot.bot.graph
 
 /**
   * 一个匹配步骤, 记录了当前匹配的父节点，路径，以及通配符所在的位置(pattern, that, topic)

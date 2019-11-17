@@ -2,7 +2,7 @@ package xiatian.chatbot
 
 import com.hankcs.hanlp.HanLP
 import xiatian.chatbot.bot.Bot
-import xiatian.chatbot.chat.Chat
+import xiatian.chatbot.bot.chat.Chat
 import xiatian.chatbot.conf.{Logging, MyConf}
 import xiatian.chatbot.http.HttpServer
 
