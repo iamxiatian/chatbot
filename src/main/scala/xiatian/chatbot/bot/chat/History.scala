@@ -23,10 +23,15 @@ class History[T](name: String) {
     * @param idx
     * @return
     */
-  def get(idx: Int): Option[T] = items.reverse.get(idx)
+  def get(idx: Int): Option[T] = {
+    if (idx < items.size) {
+      Option(items.reverse.toSeq(idx))
+    } else None
+  }
 
   /**
     * 获取最近插入的历史对象
+    *
     * @return
     */
   def last(): Option[T] = items.lastOption

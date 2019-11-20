@@ -84,11 +84,11 @@ object FaqIndexer {
             println(s"  ==> faqFile:  ${config.faqFile.get.getCanonicalPath}")
           }
         } else {
-          parser.showUsage()
+          println(parser.usage)
         }
       case None =>
         println("not valid parameters.")
-        parser.showUsage()
+        println(parser.usage)
     }
   }
 

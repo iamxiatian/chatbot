@@ -85,6 +85,7 @@ libraryDependencies += "com.google.guava" % "guava" % "24.0-jre"
 
 //scala语法的简单的HTTP包
 libraryDependencies += "org.scalaj" %% "scalaj-http" % "2.4.2"
+libraryDependencies += "com.alibaba" % "fastjson" % "1.2.58"
 
 //CIRCE JSON Parser
 libraryDependencies ++= Seq(
@@ -94,8 +95,8 @@ libraryDependencies ++= Seq(
 ).map(_ % "0.12.2")
 
 //Scala Test library
-libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % "test"
-libraryDependencies += "junit" % "junit" % "4.12"
+//libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % "test"
+//libraryDependencies += "junit" % "junit" % "4.12"
 
 scalacOptions in Test ++= Seq("-Yrangepos")
 

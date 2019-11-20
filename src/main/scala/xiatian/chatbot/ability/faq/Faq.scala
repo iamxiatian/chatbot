@@ -46,7 +46,7 @@ object Faq {
   //    .filter(_.nonEmpty)
 
   def termArray(s: String): Seq[String] =
-    NLP.segByCnChars(s).filter(!NLP.isBiaodian(_))
+    NLP.segByCnChars(s).filter(!NLP.isBiaodian(_)).toSeq
 
   def load(filename: String): Seq[Faq] = {
     val faqs = mutable.Set.empty[Faq]
