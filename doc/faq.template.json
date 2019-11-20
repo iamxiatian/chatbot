@@ -4,6 +4,7 @@
   "date": "整理日期， 如2019-11-07",
   "source": "数据来源说明，如某个网站的名称及URL",
   "memo": "其他备注",
+  "domain": "领域标识符，如：law, medicine等",
   "data": [
     {
       "questions": [

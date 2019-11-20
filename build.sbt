@@ -1,9 +1,9 @@
 organization := "xiatian"
 name := "chatbot"
-version := "1.6"
+version := "1.7"
 
-scalaVersion := "2.12.8"
-sbtVersion := "1.2.8"
+scalaVersion := "2.13.1"
+sbtVersion := "1.3.2"
 scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8")
 javacOptions := Seq("-encoding", "UTF-8")
 
@@ -24,28 +24,28 @@ buildInfoOptions += BuildInfoOption.BuildTime
 buildInfoOptions += BuildInfoOption.ToJson
 
 //akka
-val akkaVersion = "2.5.23"
+val akkaVersion = "2.6.0"
 
 libraryDependencies += "com.typesafe.akka" %% "akka-actor" % akkaVersion
 libraryDependencies += "com.typesafe.akka" %% "akka-remote" % akkaVersion
 libraryDependencies += "com.typesafe.akka" %% "akka-slf4j" % akkaVersion
-libraryDependencies += "com.typesafe.akka" %% "akka-http" % "10.1.7"
+libraryDependencies += "com.typesafe.akka" %% "akka-http" % "10.1.10"
 //akka http 跨域访问
-libraryDependencies += "ch.megard" %% "akka-http-cors" % "0.4.0"
+libraryDependencies += "ch.megard" %% "akka-http-cors" % "0.4.1"
 
 libraryDependencies += "com.typesafe" % "config" % "1.3.3"
 
 //XML support
-libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "1.0.6"
+libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "1.2.0"
 
 //command line parser
-libraryDependencies += "com.github.scopt" %% "scopt" % "3.7.0"
+libraryDependencies += "com.github.scopt" %% "scopt" % "4.0.0-RC2"
 
 //Scala wrapper for Joda Time.
-libraryDependencies += "com.github.nscala-time" %% "nscala-time" % "2.16.0"
+libraryDependencies += "com.github.nscala-time" %% "nscala-time" % "2.22.0"
 
 //Scala better file
-libraryDependencies += "com.github.pathikrit" %% "better-files-akka" % "3.0.0"
+libraryDependencies += "com.github.pathikrit" %% "better-files" % "3.8.0"
 
 //Java mail
 libraryDependencies += "javax.mail" % "mail" % "1.4.7"
@@ -60,18 +60,18 @@ libraryDependencies += "com.hankcs" % "hanlp" % "portable-1.7.1"
 libraryDependencies += "org.rocksdb" % "rocksdbjni" % "5.7.2"
 
 //Lucene
-libraryDependencies += "org.apache.lucene" % "lucene-core" % "8.1.0"
-libraryDependencies += "org.apache.lucene" % "lucene-analyzers-common" % "8.1.0"
-
-libraryDependencies += "org.apache.lucene" % "lucene-queryparser" % "8.1.0"
-libraryDependencies += "org.apache.lucene" % "lucene-queries" % "8.1.0"
-libraryDependencies += "org.apache.lucene" % "lucene-misc" % "8.1.0"
-libraryDependencies += "org.apache.lucene" % "lucene-spatial" % "8.1.0"
-libraryDependencies += "org.apache.lucene" % "lucene-suggest" % "8.1.0"
+val luceneVersion = "8.2.0"
+libraryDependencies ++= Seq(
+  "org.apache.lucene" % "lucene-core" % luceneVersion,
+  "org.apache.lucene" % "lucene-analyzers-common" % luceneVersion,
+  "org.apache.lucene" % "lucene-queryparser" % luceneVersion,
+  "org.apache.lucene" % "lucene-facet" % luceneVersion,
+  "org.apache.lucene" % "lucene-highlighter" % luceneVersion,
+)
 
 libraryDependencies ++= Seq(
-  "com.typesafe.slick" %% "slick" % "3.3.0",
-  "com.typesafe.slick" %% "slick-hikaricp" % "3.3.0"
+  "com.typesafe.slick" %% "slick" % "3.3.2",
+  "com.typesafe.slick" %% "slick-hikaricp" % "3.3.2"
 )
 libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.34"
 
@@ -84,17 +84,14 @@ libraryDependencies += "ch.qos.logback" % "logback-core" % "1.2.3"
 libraryDependencies += "com.google.guava" % "guava" % "24.0-jre"
 
 //scala语法的简单的HTTP包
-libraryDependencies += "org.scalaj" %% "scalaj-http" % "2.4.1"
+libraryDependencies += "org.scalaj" %% "scalaj-http" % "2.4.2"
 
 //CIRCE JSON Parser
 libraryDependencies ++= Seq(
   "io.circe" %% "circe-core",
   "io.circe" %% "circe-generic",
   "io.circe" %% "circe-parser"
-).map(_ % "0.10.1")
-
-libraryDependencies += "com.alibaba" % "fastjson" % "1.2.58"
-
+).map(_ % "0.12.2")
 
 //Scala Test library
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % "test"
@@ -133,7 +130,7 @@ initialCommands in console +=
     |import java.util.Date
     |
     |import xiatian.chatbot.entity._
-    |import xiatian.chatbot.chat._
+    |import xiatian.chatbot.bot.chat._
     |import xiatian.chatbot.bot._
     |import xiatian.chatbot.loader._
     |

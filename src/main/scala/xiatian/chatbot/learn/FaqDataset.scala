@@ -4,6 +4,8 @@ import java.nio.charset.StandardCharsets
 
 import better.files.File
 import io.circe._
+import io.circe.syntax._
+import xiatian.chatbot.ability.faq.{Faq, FaqIndexer}
 
 /**
   * FAQ数据集，FAQ的格式如faq.template.json所示
@@ -14,11 +16,14 @@ object FaqDataset {
     val doc: Json = parser.parse(jsonString).getOrElse(Json.Null)
 
     val cursor: HCursor = doc.hcursor
+    val domain = cursor.downField("domain").as[String].getOrElse("default")
     val items: Vector[Json] = cursor.downField("data").focus
       .flatMap(_.asArray)
       .getOrElse(Vector.empty)
 
-    items.map {
+    val indexer = new FaqIndexer(File("./data/faq/index").path)
+
+    items.foreach {
       case json =>
         // {
         //      "questions": [
@@ -48,17 +53,26 @@ object FaqDataset {
           .getOrElse(Vector.empty)
           .flatMap(_.asString)
 
-        println("questions:")
-        questions.foreach(println)
-        println("answers:")
-        answers.foreach(println)
-
-        ""
+        val jsonAnswer = answers.asJson.pretty(Printer.noSpaces)
+        if (answers.size > 0) {
+          questions.filter(_.nonEmpty).foreach {
+            input =>
+              val faq = Faq(input, jsonAnswer, Faq.TYPE_JSON, domain)
+              indexer.index(faq)
+          }
+        }
     }
+
+    indexer.close()
+    println("DONE!")
   }
 
   def main(args: Array[String]): Unit = {
-    parse(File("doc/faq.tempate.json"))
+    if (args.size != 1) {
+      println("Usage: faq-dataset jsonfile")
+    } else {
+      parse(File(args(0)))
+    }
   }
 
 }
